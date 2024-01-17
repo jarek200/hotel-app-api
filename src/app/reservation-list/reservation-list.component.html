@@ -2,31 +2,45 @@
 <div class="container">
   <h2>Reservation List</h2>
 
-  <ul *ngIf="reservations.length; else noReservations" class="list-unstyled">
-    <li
-      *ngFor="let reservation of reservations"
-      class="mb-3 p-2 border rounded"
-    >
-      <strong>Guest:</strong> {{ reservation.guestName }} <br />
-      <strong>Email:</strong> {{ reservation.guestEmail }} <br />
-      <strong>Room No.:</strong> {{ reservation.roomNumber }} <br />
-      <strong>Check-In:</strong> {{ reservation.checkInDate }} <br />
-      <strong>Check-Out:</strong> {{ reservation.checkOutDate }} <br />
-      <button
-        (click)="deleteReservation(reservation.id)"
-        class="btn btn-danger mt-2"
-        style="margin-right: 10px"
-      >
-        Delete
-      </button>
-      <button
-        [routerLink]="['/edit', reservation.id]"
-        class="btn btn-primary mt-2"
-      >
-        Edit
-      </button>
-    </li>
-  </ul>
+  <table
+    *ngIf="reservations.length; else noReservations"
+    class="table table-striped"
+  >
+    <thead>
+      <tr>
+        <th>Guest</th>
+        <th>Email</th>
+        <th>Room No.</th>
+        <th>Check-In</th>
+        <th>Check-Out</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reservation of reservations">
+        <td>{{ reservation.guestName }}</td>
+        <td>{{ reservation.guestEmail }}</td>
+        <td>{{ reservation.roomNumber }}</td>
+        <td>{{ reservation.checkInDate }}</td>
+        <td>{{ reservation.checkOutDate }}</td>
+        <td>
+          <button
+            (click)="deleteReservation(reservation.id)"
+            class="btn btn-danger"
+            style="margin-right: 10px"
+          >
+            Delete
+          </button>
+          <button
+            [routerLink]="['/edit', reservation.id]"
+            class="btn btn-primary"
+          >
+            Edit
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
   <ng-template #noReservations> <p>No reservations found.</p> </ng-template>
 </div>
